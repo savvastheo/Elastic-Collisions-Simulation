@@ -10,8 +10,8 @@ Structure of the input file:
 .  
 <*xi yi ci mi ri sxi syi*>  
 
-**xi, yi**: initial position of the ith sphere *(0 <= xi <= 600, 0 <= yi <= 400)*   
-**ci**: color of the ith sphere *(0 <= ci <= 15)*  
-**mi**: mass of the ith sphere *(0 <= mi <= 10000)*  
-**ri**: radius of the ith sphere *(1 <= ri <= 100)*  
-**sxi, syi**: initial velocity of the ith sphere (pixels/sec) *(-100 <= sxi, syi <=100)*  
+**xi, yi**: initial position of the ith sphere *(0<=xi<=600, 0<=yi<=400)*   
+**ci**: color of the ith sphere *(0<=ci<=15)*  
+**mi**: mass of the ith sphere *(0<=mi<=10000)*  
+**ri**: radius of the ith sphere *(1<=ri<=100)*  
+**sxi, syi**: initial velocity of the ith sphere (pixels/sec) *(-100<=sxi, syi<=100)*  
