@@ -1,5 +1,6 @@
 # Elastic-Collisions-Simulation  
 A program that simulates elastic collisions. Written in C using WinBGIm graphics library.  
+*This project was created for a 1st semester course.*  
   
 **Structure of the input file:**  
 <*number_of_spheres*>    
