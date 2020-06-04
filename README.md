@@ -1,2 +1,3 @@
 # Elastic-Collisions-Simulation
-A program to simulate elastic collisions
+A program that simulates elastic collisions. 
+Written in C using WinBGIm graphics library.
