@@ -4,44 +4,44 @@
 #include <time.h>
 #include <math.h>
 
-typedef struct structOfSphere{  //Δομή για τις σφαίρες
-    int PositionX;              //Θέση στον x άξονα(Κέντρο σφαίρας)
-    int PositionY;              //Θέση στον y άξονα(Κέντρο σφαίρας)
-    int Color;                  //Χρώμα της σφαίρας
-    int Mass;                   //Μάζα της σφαίρας
-    int Radius;                 //Ακτίνα της σφαίρας
-    int SpeedX;                 //Ταχύτητα της σφαίρας σε pixels/sec
-    int SpeedY;                 //Ταχύτητα της σφαίρας σε pixels/sec
+typedef struct structOfSphere{  
+    int PositionX;              
+    int PositionY;              
+    int Color;                  
+    int Mass;                   
+    int Radius;                 
+    int SpeedX;                 
+    int SpeedY;                 
 }Sphere;
 
-double twoPointDistance(double pointAX,double pointAY,double pointBX,double pointBY){ //Επιστρέφει την απόσταση 2 σημείων
+double twoPointDistance(double pointAX,double pointAY,double pointBX,double pointBY){ 
     return sqrt(pow(pointBX-pointAX,2)+pow(pointBY-pointAY,2));
 }
 
-char spheresCollide(double distanceOfCenter,double radiusA,double radiusB){ //Ελέγχει αν δύο σφαίρες συγκρούονται
+char spheresCollide(double distanceOfCenter,double radiusA,double radiusB){ 
     if (distanceOfCenter<=(radiusA+radiusB)){
         return 1;
     }
     return 0;
 }
 
-char readFile(FILE *file,Sphere **totalSpheres,int *sizeOfTotal){ // Συνάρτηση που διαβάζει το αρχείο
+char readFile(FILE *file,Sphere **totalSpheres,int *sizeOfTotal){ 
     int positionX,positionY,color,mass,radius,speedX,speedY,amountOfSpheres,i;
     fscanf(file,"%d",&amountOfSpheres);
-    if (amountOfSpheres<=0){ //Έλεγχος τιμής για τον αριθμό σφαιρών
+    if (amountOfSpheres<=0){ 
         return 0;
     }
     *totalSpheres=(Sphere*)malloc(amountOfSpheres*sizeof(Sphere));
     *sizeOfTotal=amountOfSpheres;
     for (i=0;i<amountOfSpheres;i++){
         fscanf(file,"%d%d%d%d%d%d%d",&positionX,&positionY,&color,&mass,&radius,&speedX,&speedY);
-        if ((positionX<0 || positionX>600) || (positionY<0 || positionY>400)){ //Έλεγχος τιμής για αρχική θέση x και y
+        if ((positionX<0 || positionX>600) || (positionY<0 || positionY>400)){ 
             return 0;
         }
-        if ((color<0 || color>15) || (mass<0 || mass>10000) || (radius<1 || radius>100)){ //Έλεγχος τιμής χρώματος,μάζας και ακτίνας
+        if ((color<0 || color>15) || (mass<0 || mass>10000) || (radius<1 || radius>100)){ 
             return 0;
         }
-        if ((speedX<-100 || speedX>100) || (speedY<-100 || speedY>100)){ //Έλεγχος τιμής για αρχική ταχύτητα
+        if ((speedX<-100 || speedX>100) || (speedY<-100 || speedY>100)){ 
             return 0;
         }
         (*totalSpheres)[i].PositionX=positionX;
@@ -55,7 +55,7 @@ char readFile(FILE *file,Sphere **totalSpheres,int *sizeOfTotal){ // Συνάρτηση π
     return 1;
 }
 
-void start(Sphere *totalSpheres,int sizeOfTotal){ //Συνάρτηση η οποία δημιουργεί τα γραφικά
+void start(Sphere *totalSpheres,int sizeOfTotal){ 
     clock_t start,finish, previous;
     double step;
     double *PositionX,*PositionY,*SpeedX,*SpeedY,*Radius,*Mass,tempSpeedA,tempSpeedB;
@@ -68,7 +68,7 @@ void start(Sphere *totalSpheres,int sizeOfTotal){ //Συνάρτηση η οποία δημιουργεί
       system ("pause");
       exit(1);
     }
-    PositionX=(double*)malloc(sizeOfTotal*sizeof(double)); //Δημιουργία αντίστοιχων δεικτών σε double για λόγους ακρίβειας
+    PositionX=(double*)malloc(sizeOfTotal*sizeof(double)); 
     PositionY=(double*)malloc(sizeOfTotal*sizeof(double));
     SpeedX=(double*)malloc(sizeOfTotal*sizeof(double));
     SpeedY=(double*)malloc(sizeOfTotal*sizeof(double));
@@ -99,7 +99,7 @@ void start(Sphere *totalSpheres,int sizeOfTotal){ //Συνάρτηση η οποία δημιουργεί
                     SpeedX[i] *= -1;
                 if (PositionY[i]+Radius[i]>=(getmaxy()-2) || PositionY[i]-Radius[i]<=2)
                     SpeedY[i] *= -1;
-                switch (totalSpheres[i].Color){ //Ανάλογα με το χρώμα δημιουργούμε την ανάλογη σφαίρα
+                switch (totalSpheres[i].Color){ 
                     case 0: setfillstyle(SOLID_FILL,BLACK);
                             setcolor(BLACK);
                             break;
@@ -151,7 +151,7 @@ void start(Sphere *totalSpheres,int sizeOfTotal){ //Συνάρτηση η οποία δημιουργεί
                 }
                 fillellipse(PositionX[i],PositionY[i],Radius[i],Radius[i]);
             }
-            for (i=0;i<sizeOfTotal;i++){ //Έλεγχος αν συγκρούονται οι σφαίρες
+            for (i=0;i<sizeOfTotal;i++){ 
                 for (j=i;j<sizeOfTotal;j++){
                     if (j!=i){
                         if (spheresCollide(twoPointDistance(PositionX[i],PositionY[i],PositionX[j],PositionY[j]),Radius[i],Radius[j])){
@@ -169,7 +169,7 @@ void start(Sphere *totalSpheres,int sizeOfTotal){ //Συνάρτηση η οποία δημιουργεί
             }
         }
     }
-    while (!kbhit()); //Αυτή η επανάληψη θα γίνεται μέχρι ο χρήστης να πατήσει ένα οποιοδήποτε πλήκτρο
+    while (!kbhit()); 
     closegraph();
     free(PositionX);
     free(PositionY);
@@ -185,9 +185,9 @@ int main()
     FILE *file;
     Sphere *totalSpheres;
     totalSpheres=NULL;
-    if ((file=fopen("input.txt","r"))!=NULL){ //¶νοιγμα του αρχείου
-        if (readFile(file,&totalSpheres,&sizeOfTotal)){ //Διάβασμα του αρχείου
-            start(totalSpheres,sizeOfTotal); //Εκκίνηση (δημιουργία γραφικών κτλπ)
+    if ((file=fopen("input.txt","r"))!=NULL){ 
+        if (readFile(file,&totalSpheres,&sizeOfTotal)){ 
+            start(totalSpheres,sizeOfTotal); 
             fclose(file);
             free(totalSpheres);
         }
