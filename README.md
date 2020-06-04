@@ -15,3 +15,7 @@ A program that simulates elastic collisions. Written in C using WinBGIm graphics
 **mi**: mass of the ith sphere *(0<=mi<=10000)*  
 **ri**: radius of the ith sphere *(1<=ri<=100)*  
 **sxi, syi**: initial velocity of the ith sphere (pixels/sec) *(-100<=sxi, syi<=100)*  
+  
+  
+  ![image](https://i.ibb.co/SnpWZpT/Untitled.png)
+  
